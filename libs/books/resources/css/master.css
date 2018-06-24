@@ -1,0 +1,87 @@
+.list-control {
+	float: right;
+}
+.list-control .glyphicon, .user-info .glyphicon {
+	cursor: pointer;
+}
+
+.glyphicon-trash {
+	color: red;
+}
+
+.book-list {
+	margin: 0;
+	padding: 0.5em;
+	border: solid 1px lightgrey;
+	height: 400px;
+	overflow-y: auto; 
+}
+.book-list li {
+	list-style-position: inside;
+	background: lightgrey;
+	padding: 0.5em;
+	margin-bottom: 0.2em;
+	cursor: pointer;
+}
+.book-list li:hover {
+	background: lightblue;
+	cursor: pointer;
+}
+
+.user-info img {
+	float: left;
+	width: 20%;
+	border-radius: 50%;
+	border: dashed lightblue 1px;
+	margin-right: 0.5em; 
+}
+.login-form {
+	width: 400px;
+	height: 230px;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 1.5em;
+	border-radius: 5px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -115px;
+}
+.user-add-form {
+	width: 400px;
+	height: 450px;
+	margin-top: 10%;
+	min-width: 100px;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 1.5em;
+	border-radius: 5px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -225px;
+}
+.login-form label, .user-add-form label {
+	color: white;
+	text-decoration: none;
+}
+#error-modal pre {
+	background: red;
+	color: white;
+}
+.bg-img {
+	background: url('../img/color-books.jpg');
+}
+
+.navbar {
+	border-radius: 0;
+	box-shadow: 0px 0px 1px lightblue;
+}
+
+.logout {
+	cursor: pointer;
+}
+
+legend .form-inline{
+	float: right;
+}

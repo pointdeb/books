@@ -1,0 +1,32 @@
+<fieldset class="user-add-form">
+		<!-- <legend>Login</legend> -->
+		<form id="user-add-form" ng-submit="addUser(user)"></form>
+		<div class="form-horizontal col-sm-12">
+			<div class="form-group">
+				<label for="first_name">First name</label>
+				<input type="first_name" id="first_name" ng-model="user.first_name" class="form-control" form="user-add-form" placeholder="first name" required>
+			</div>
+			<div class="form-group">
+				<label for="last_name">Last name</label>
+				<input type="last_name" id="last_name" ng-model="user.last_name" class="form-control" form="user-add-form" placeholder="last name">
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" ng-model="user.email" class="form-control" form="user-add-form" placeholder="exemple@site.com" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" ng-model="user.password" class="form-control" form="user-add-form" placeholder="password" required>
+			</div>
+			<div class="form-group">
+				<label for="confirm_password">Confirm Password</label>
+				<input type="password" id="confirm_password" ng-model="user.confirm_password" class="form-control" form="user-add-form" placeholder="confirm password" required>
+				<p class="help-block" ng-show="(user.password != user.confirm_password) && user.confirm_password " >Password not the same.</p>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" form="user-add-form">Create</button>
+				or
+				<a href="#!/user/login" title="">All ready have an account</a>
+			</div>
+		</div>
+</fieldset>

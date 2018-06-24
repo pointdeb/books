@@ -1,0 +1,118 @@
+<div ng-init="form_id='user-add'; userEdit= false;">
+	
+</div>
+<form id="user-add" ng-submit="addBook(user)"></form>
+<form id="user-edit" ng-submit="updateBook(user)"></form>
+<div ng-class="{'col-sm-4': true }" ng-show="true">
+	<fieldset>
+		<legend>Information</legend>
+		<div class="col-sm-12">
+			<div class="user-info">
+				<img src="libs/books/resources/img/user.png" alt="">
+				<p>{{ user.first_name }} {{ user.last_name }} <span class="glyphicon glyphicon-pencil" ng-show="!userEdit" ng-click="userEdit = true"></span> <br> 
+					{{ user.email }} 
+				</p>
+			</div>
+		</div>
+		<div ng-show="userEdit" class="form-horizontal col-sm-12">
+			<div class="form-group">
+				<label for="first_name">First Name</label>
+				<input type="text" id="first_name" class="form-control" ng-model="user.first_name" form="{{form_id}}" required>
+			</div>
+			<div class="form-group">
+				<label for="last_name">LastName</label>
+				<input type="text" id="last_name" class="form-control" ng-model="user.last_name" form="{{form_id}}" required>
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="text" id="email" class="form-control" ng-model="user.email" form="{{form_id}}" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" min="1" class="form-control" ng-model="user.password" form="{{form_id}}" required>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" form="{{ form_id }}">Save</button>
+				<button type="button" class="btn btn-default" ng-click="clearEditForm()" >Cancel</button>
+			</div>
+		</div>
+	</fieldset>
+</div>
+<div ng-class="{'col-sm-8': true, 'col-sm-12': !true }">
+	<div ng-if="user.admin">
+		<div ng-init="findEmprunt()">
+			
+		</div>
+	</div>
+	<div ng-if="!user.admin">
+		<div ng-init="findUserEmprunt()">
+			
+		</div>
+	</div>
+	<fieldset>
+		<legend ng-show="user.admin">List of borowed book
+			<div class="form-inline">
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" ng-model="searchKey" placeholder="search">
+					<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				</div>
+			</div>
+		</legend>
+		<legend ng-show="!user.admin">List of my book
+			<div class="form-inline">
+				<div class="form-group has-feedback">
+					<input type="text" style="margin-bottom: .2rem;" class="form-control input-sm" ng-model="searchKey" placeholder="search">
+					<span class="glyphicon glyphicon-search form-control-feedback"></span>
+				</div>
+			</div>
+		</legend>
+		<ol class="book-list">
+			<!-- <li>Developer PHP 
+				<span class="list-control">
+					<span ng-show="admin" class="glyphicon glyphicon-share-alt"></span>
+				</span>
+			</li> -->
+			<div ng-if="user.admin">
+				<li ng-repeat="myBook in myBooks | filter: {name: searchKey}"> {{ myBook.start_date + ' - ' + myBook.end_date + ' ' + myBook.first_name  + ' ' + myBook.name }} 
+					<span class="list-control">
+						<span ng-show="myBook.active == true" class="glyphicon glyphicon-share-alt" ></span>
+					</span>
+				</li>
+			</div>
+			<div ng-if="!user.admin">
+				<li ng-repeat="myBook in myBooks"> {{ myBook.start_date + ' - ' + myBook.end_date + ' ' + myBook.name }} 
+					<span class="list-control">
+						<span ng-show="myBook.active == true" class="glyphicon glyphicon-share-alt" ng-click="unBorowBook(myBook)" ></span>
+					</span>
+				</li>
+			</div>
+		</ol>
+	</fieldset>
+</div>
+<div id="delete-modal">
+	<div class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Return book confirmation</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+	        	<div class="col-sm-12">
+	        		<p>Name: {{ bookToRender.name }} </p>
+	        		<p>Edition: {{ bookToRender.edition }} </p>
+	        		<p>Author: {{ bookToRender.author }} </p>
+	        		<p>Start: {{ bookToRender.start_date }} </p>
+	        		<p>End: {{ bookToRender.end_date }} </p>
+	        	</div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-primary" ng-click="unBorowBookConfirm(bookToRender)">Render</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</div>

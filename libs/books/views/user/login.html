@@ -1,0 +1,19 @@
+<fieldset class="login-form">
+		<!-- <legend>Login</legend> -->
+		<form id="login-form" ng-submit="login(user)"></form>
+		<div class="form-horizontal col-sm-12">
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" ng-model="user.email" class="form-control" form="login-form" placeholder="example@site.com" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" ng-model="user.password" class="form-control" form="login-form" placeholder="password" required>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" form="login-form">Login</button>
+				or
+				<a href="#!/user/add" title="">Create new account</a>
+			</div>
+		</div>
+</fieldset>
