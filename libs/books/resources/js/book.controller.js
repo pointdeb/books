@@ -33,8 +33,16 @@ angular.module('books').controller('BookController', ['$scope', '$rootScope', '$
 
 	$scope.deleteBookConfirm = function(book){
 		console.log('Removed permanent '+ book.id);
-		$scope.bookToDelete = undefined;
-		$('#delete-modal .modal').modal('hide');
+		BookService.deleteBook({book: book.id, permanent: true}).then(function (response) {
+			console.log(response);
+			$scope.bookToDelete = undefined;
+			$('#delete-modal .modal').modal('hide');
+			$scope.findBook();
+		}, function (error) {
+			console.error(error);
+			$rootScope.error = data;
+			$('#error-modal .modal').modal('show');
+		})
 	}
 
 	$scope.borrowBook = function(book){
@@ -87,6 +95,8 @@ angular.module('books').controller('BookController', ['$scope', '$rootScope', '$
 			$scope.findBook();
 		}, function(data){
 			console.log(data);
+			$rootScope.error = data;
+			$('#error-modal .modal').modal('show');
 		});
 	}
 	$scope.updateBook = function(book){
@@ -94,6 +104,8 @@ angular.module('books').controller('BookController', ['$scope', '$rootScope', '$
 			$scope.findBook();
 		}, function(data){
 			console.log(data);
+			$rootScope.error = data;
+			$('#error-modal .modal').modal('show');
 		});
 	}
 	$scope.bookDetail = function(book){

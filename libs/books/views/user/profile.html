@@ -50,15 +50,15 @@
 		</div>
 	</div>
 	<fieldset>
-		<legend ng-show="user.admin">List of borowed book
+		<legend ng-show="user.admin">List of borowed books
 			<div class="form-inline">
 				<div class="form-group has-feedback">
-					<input type="text" class="form-control" ng-model="searchKey" placeholder="search">
+					<input type="text" style="margin-bottom: .2rem;" class="form-control input-sm" ng-model="searchKey" placeholder="search">
 					<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				</div>
 			</div>
 		</legend>
-		<legend ng-show="!user.admin">List of my book
+		<legend ng-show="!user.admin">List of my books
 			<div class="form-inline">
 				<div class="form-group has-feedback">
 					<input type="text" style="margin-bottom: .2rem;" class="form-control input-sm" ng-model="searchKey" placeholder="search">

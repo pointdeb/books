@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 06 Juin 2017 à 20:44
--- Version du serveur :  5.7.9
--- Version de PHP :  5.6.16
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 24, 2018 at 02:30 AM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `book`
+-- Database: `book`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `book`
+-- Table structure for table `book`
 --
 
 DROP TABLE IF EXISTS `book`;
@@ -36,23 +38,27 @@ CREATE TABLE IF NOT EXISTS `book` (
   `user` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `book`
+-- Dumping data for table `book`
 --
 
 INSERT INTO `book` (`id`, `name`, `edition`, `author`, `nbr`, `user`, `active`, `creation_date`) VALUES
-(1, 'PHP advanced', 'EYROLLES', 'EYROLLES', '5', 1, 1, '2017-06-06 21:22:02'),
-(2, 'PHP unit', 'EYROLLES', 'EYROLLES', '3', 1, 1, '2017-06-06 21:22:02'),
-(3, 'PHP 4', 'OPENCLASSROOM', 'Mathieu Nebra', '5', 1, 1, '2017-06-06 21:34:11'),
-(4, 'PHP 7', 'OPENCLASSROOM', 'Mathieu Nebra', '8', 1, 1, '2017-06-06 21:34:25');
+(1, 'PHP advanced', 'EYROLLES', 'EYROLLES', '5', 1, 1, '2018-06-23 18:55:21'),
+(2, 'PHP unit', 'EYROLLES', 'EYROLLES', '5', 1, 1, '2018-06-23 18:55:21'),
+(8, 'JAVA', 'EYROLLES', 'John', '5', 1, 1, '2018-06-23 19:23:45'),
+(9, 'JEE', 'EYROLLES', 'John', '5', 1, 1, '2018-06-23 19:24:33'),
+(10, 'Java 9', 'EYROLLES', 'John', '5', 1, 1, '2018-06-23 19:24:43'),
+(11, 'Javascript', 'EYROLLES', 'John', '5', 1, 1, '2018-06-23 19:24:53'),
+(12, 'NodeJs', 'EYROLLES', 'John', '5', 1, 1, '2018-06-23 19:25:02');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `emprunt`
+-- Table structure for table `emprunt`
 --
 
 DROP TABLE IF EXISTS `emprunt`;
@@ -64,20 +70,14 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
   `user` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `emprunt`
---
-
-INSERT INTO `emprunt` (`id`, `start_date`, `end_date`, `book`, `user`, `active`, `creation_date`) VALUES
-(1, '2017-02-14', '2017-02-14', 4, 2, 1, '2017-06-06 21:54:00');
+  PRIMARY KEY (`id`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -90,16 +90,34 @@ CREATE TABLE IF NOT EXISTS `user` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `active`, `admin`, `creation_date`) VALUES
-(1, 'developer', NULL, 'developer@gmail.com', 'secret', 1, 1, '2017-06-06 21:22:02'),
-(2, 'user', NULL, 'user@gmail.com', 'secret', 1, 0, '2017-06-06 21:22:02');
+(1, 'developer', NULL, 'developer@gmail.com', '8e2ad3b8e7ee8cdf34d66b120fae70625ab1a4ae', 1, 1, '2018-06-23 18:55:21'),
+(2, 'user', NULL, 'user@gmail.com', '8e2ad3b8e7ee8cdf34d66b120fae70625ab1a4ae', 1, 0, '2018-06-23 18:55:21');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `book`
+--
+ALTER TABLE `book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `emprunt`
+--
+ALTER TABLE `emprunt`
+  ADD CONSTRAINT `emprunt_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

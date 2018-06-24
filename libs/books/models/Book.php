@@ -49,7 +49,13 @@
 			if ($exist->rowCount() > 0) {
 				return array('error'=>true, 'detail'=> 'Book is still in emprunt.');
 			}
-			$delete = $this->prepare("UPDATE book SET active = false WHERE id=:id");
+			if ($data['permanent']) {
+				$sql = "DELETE FROM book WHERE id=:id";
+			} else {
+				$sql = "UPDATE book SET active = false WHERE id=:id";
+			}
+			
+			$delete = $this->prepare($sql);
 
 			$delete->execute(array('id' => $data['book']));
 			return array('error'=>false, 'detail'=> 'Suppression successfully');
